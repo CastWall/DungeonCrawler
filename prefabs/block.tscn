@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://beh4p8qfw2t4p"]
+
+[ext_resource type="PackedScene" uid="uid://vxt6aumgoj4n" path="res://models/base_block.glb" id="1_c742d"]
+[ext_resource type="Script" path="res://src/BlockController.cs" id="1_qwpwp"]
+[ext_resource type="PackedScene" uid="uid://cda1jm4gasixd" path="res://models/wall.glb" id="3_svrci"]
+
+[node name="Block" type="Node3D"]
+script = ExtResource("1_qwpwp")
+EastWallEnabled = true
+WestWallEnabled = true
+
+[node name="base_block" parent="." instance=ExtResource("1_c742d")]
+
+[node name="POV" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="Walls" type="Node3D" parent="."]
+
+[node name="Wall+X" parent="Walls" instance=ExtResource("3_svrci")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1, 0, 0)
+visible = false
+
+[node name="Wall-X" parent="Walls" instance=ExtResource("3_svrci")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 0, 0)
+visible = false
+
+[node name="Wall+Z" parent="Walls" instance=ExtResource("3_svrci")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 1)
+visible = false
+
+[node name="Wall-Z" parent="Walls" instance=ExtResource("3_svrci")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+visible = false

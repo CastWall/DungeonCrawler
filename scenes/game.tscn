@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://c5abx3jt5w8g4"]
+
+[ext_resource type="Script" path="res://src/GameController.cs" id="1_r8d1c"]
+[ext_resource type="PackedScene" uid="uid://beh4p8qfw2t4p" path="res://prefabs/block.tscn" id="1_txofu"]
+[ext_resource type="PackedScene" uid="uid://bu5l6ifg0jvng" path="res://prefabs/player.tscn" id="3_ejf4v"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_h5ghb"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_ehy3x"]
+sky_material = SubResource("ProceduralSkyMaterial_h5ghb")
+
+[sub_resource type="Environment" id="Environment_tskge"]
+background_mode = 2
+sky = SubResource("Sky_ehy3x")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Game" type="Node3D"]
+script = ExtResource("1_r8d1c")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_tskge")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Block" parent="." instance=ExtResource("1_txofu")]
+
+[node name="Block2" parent="." instance=ExtResource("1_txofu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="Block3" parent="." instance=ExtResource("1_txofu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="Block4" parent="." instance=ExtResource("1_txofu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="Wall+X" parent="Block4/Walls" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Wall-X" parent="Block4/Walls" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Wall+Z" parent="Block4/Walls" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Wall-Z" parent="Block4/Walls" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Player" parent="." instance=ExtResource("3_ejf4v")]
+
+[editable path="Block4"]

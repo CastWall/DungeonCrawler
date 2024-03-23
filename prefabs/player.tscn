@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bu5l6ifg0jvng"]
+
+[ext_resource type="Script" path="res://src/PlayerController.cs" id="1_jsuwv"]
+[ext_resource type="Script" path="res://src/FreeLookCamera.cs" id="1_phyu1"]
+
+[node name="Player" type="Node3D"]
+script = ExtResource("1_jsuwv")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1.7, 0)
+script = ExtResource("1_phyu1")
