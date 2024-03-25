@@ -6,13 +6,15 @@ public partial class PlayerController : Node3D
 {
     public Direction CurrentDirection { get; protected set; }
 
-    protected Camera3D Camera;
-    protected Node3D DebugObject;
+    private Camera3D _camera;
+    private Node3D _debugObject;
+    private GraffitiController _graffitiController;
 
     public override void _Ready()
     {
-        Camera = GetNode<Camera3D>("Camera3D");
-        DebugObject = GetNode<Node3D>("Debug");
+        _camera = GetNode<Camera3D>("Camera3D");
+        _debugObject = GetNode<Node3D>("Debug");
+        _graffitiController = GetNode<GraffitiController>("GraffitiController");
 
         GD.Print("Player ready");
         SetCurrentDirectionFromCamera();
@@ -25,6 +27,12 @@ public partial class PlayerController : Node3D
         {
             SnapCamera();
         }
+
+        // if (Input.IsActionJustPressed("graff"))
+        if (Input.IsActionPressed("graff"))
+        {
+            _graffitiController.Graff();
+        }
     }
 
 
@@ -32,13 +40,13 @@ public partial class PlayerController : Node3D
 
     protected void SnapCamera(Direction direction)
     {
-        Camera.RotateY(0); // Reset rotation between -180 and 180
+        _camera.RotateY(0); // Reset rotation between -180 and 180
         
         Tween tween = GetTree().CreateTween();
         tween.SetProcessMode(Tween.TweenProcessMode.Idle); //on frame update
-        tween.TweenProperty(Camera,
+        tween.TweenProperty(_camera,
             "rotation",
-            new Vector3(0, DirectionHelper.GetAimedYAngle(Camera), 0),
+            new Vector3(0, DirectionHelper.GetAimedYAngle(_camera), 0),
             0.5f
         );
     }
@@ -46,6 +54,6 @@ public partial class PlayerController : Node3D
 
     protected void SetCurrentDirectionFromCamera()
     {
-        CurrentDirection = DirectionHelper.FromCamera(Camera);
+        CurrentDirection = DirectionHelper.FromCamera(_camera);
     }
 }

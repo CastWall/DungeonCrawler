@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bu5l6ifg0jvng"]
+[gd_scene load_steps=5 format=3 uid="uid://bu5l6ifg0jvng"]
 
 [ext_resource type="Script" path="res://src/PlayerController.cs" id="1_jsuwv"]
 [ext_resource type="Script" path="res://src/FreeLookCamera.cs" id="1_phyu1"]
+[ext_resource type="Script" path="res://src/GraffitiController.cs" id="3_jhs4l"]
+[ext_resource type="PackedScene" uid="uid://cdxypocckqnbg" path="res://prefabs/decal.tscn" id="4_n0u76"]
 
 [node name="Player" type="Node3D"]
 script = ExtResource("1_jsuwv")
@@ -10,5 +12,13 @@ script = ExtResource("1_jsuwv")
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1.7, 0)
 script = ExtResource("1_phyu1")
 
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
+target_position = Vector3(0, 0, -10)
+collide_with_areas = true
+
 [node name="Debug" type="CSGSphere3D" parent="."]
 visible = false
+
+[node name="GraffitiController" type="Node3D" parent="."]
+script = ExtResource("3_jhs4l")
+_decalPrefab = ExtResource("4_n0u76")

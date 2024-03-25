@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://c5abx3jt5w8g4"]
+[gd_scene load_steps=8 format=3 uid="uid://c5abx3jt5w8g4"]
 
 [ext_resource type="Script" path="res://src/GameController.cs" id="1_r8d1c"]
 [ext_resource type="PackedScene" uid="uid://beh4p8qfw2t4p" path="res://prefabs/block.tscn" id="1_txofu"]
 [ext_resource type="PackedScene" uid="uid://bu5l6ifg0jvng" path="res://prefabs/player.tscn" id="3_ejf4v"]
+[ext_resource type="PackedScene" uid="uid://cdxypocckqnbg" path="res://prefabs/decal.tscn" id="4_atkvm"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_h5ghb"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -34,22 +35,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 
 [node name="Block3" parent="." instance=ExtResource("1_txofu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
-
-[node name="Block4" parent="." instance=ExtResource("1_txofu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
-
-[node name="Wall+X" parent="Block4/Walls" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-
-[node name="Wall-X" parent="Block4/Walls" index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-
-[node name="Wall+Z" parent="Block4/Walls" index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-
-[node name="Wall-Z" parent="Block4/Walls" index="3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+SouthWallEnabled = true
 
 [node name="Player" parent="." instance=ExtResource("3_ejf4v")]
 
-[editable path="Block4"]
+[node name="Decal" parent="." instance=ExtResource("4_atkvm")]
+transform = Transform3D(-0.926045, -0.374561, -0.0463047, 0, 0.12269, -0.992445, 0.377412, -0.919049, -0.113616, 0.949328, 1.38904, 2.32934)
+visible = false
