@@ -1,5 +1,6 @@
 using Godot;
-using System;
+
+namespace DungeonCrawler;
 
 public partial class GraffitiController : Node3D
 {
@@ -8,11 +9,14 @@ public partial class GraffitiController : Node3D
 
     private Camera3D _camera;
     private RayCast3D _raycast;
+    
+    public long NumberOfGraffitis { get; protected set; }
 
     public override void _Ready()
     {
         _camera = GetNode<Camera3D>("../Camera3D");
         _raycast = _camera.GetNode<RayCast3D>("RayCast3D");
+        NumberOfGraffitis = 0;
     }
 
     public void Graff()
@@ -33,6 +37,7 @@ public partial class GraffitiController : Node3D
             decal.Rotate(_camera.Basis.X ,Mathf.Pi/2);
             // decal.Rotation = new Vector3(-Mathf.Pi/2, 0, 0);
             // decal.RotateX(Mathf.Pi);
+            NumberOfGraffitis++;
         }
     }
 }

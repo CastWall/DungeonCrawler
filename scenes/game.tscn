@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://c5abx3jt5w8g4"]
+[gd_scene load_steps=9 format=3 uid="uid://c5abx3jt5w8g4"]
 
 [ext_resource type="Script" path="res://src/GameController.cs" id="1_r8d1c"]
 [ext_resource type="PackedScene" uid="uid://bu5l6ifg0jvng" path="res://prefabs/player.tscn" id="3_ejf4v"]
 [ext_resource type="PackedScene" uid="uid://cdxypocckqnbg" path="res://prefabs/decal.tscn" id="4_atkvm"]
 [ext_resource type="PackedScene" uid="uid://ddmmbb15l82dn" path="res://scenes/level.tscn" id="4_fprlx"]
+[ext_resource type="PackedScene" uid="uid://oy3qi6wx6aa" path="res://prefabs/player_ui.tscn" id="5_iywrk"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_h5ghb"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -35,3 +36,5 @@ transform = Transform3D(-0.926045, -0.374561, -0.0463047, 0, 0.12269, -0.992445,
 visible = false
 
 [node name="Level" parent="." instance=ExtResource("4_fprlx")]
+
+[node name="PlayerUi" parent="." instance=ExtResource("5_iywrk")]

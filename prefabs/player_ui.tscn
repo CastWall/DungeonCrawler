@@ -1,4 +1,7 @@
-[gd_scene format=3 uid="uid://oy3qi6wx6aa"]
+[gd_scene load_steps=3 format=3 uid="uid://oy3qi6wx6aa"]
+
+[ext_resource type="Script" path="res://src/ui/FPS.cs" id="1_5fgae"]
+[ext_resource type="Script" path="res://src/ui/DecalNumber.cs" id="2_u7wy6"]
 
 [node name="PlayerUi" type="Control"]
 layout_mode = 3
@@ -7,3 +10,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="FPS" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+script = ExtResource("1_5fgae")
+
+[node name="DecalNumber" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+script = ExtResource("2_u7wy6")
