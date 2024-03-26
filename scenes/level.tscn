@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddmmbb15l82dn"]
+
+[ext_resource type="PackedScene" uid="uid://beh4p8qfw2t4p" path="res://prefabs/block.tscn" id="1_bomht"]
+
+[node name="Level" type="Node3D"]
+
+[node name="Block" parent="." instance=ExtResource("1_bomht")]
+
+[node name="Block2" parent="." instance=ExtResource("1_bomht")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="Block3" parent="." instance=ExtResource("1_bomht")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+SouthWallEnabled = true
