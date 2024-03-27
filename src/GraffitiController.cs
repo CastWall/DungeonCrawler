@@ -24,20 +24,32 @@ public partial class GraffitiController : Node3D
         GD.Print("camera : ", _camera, ", raycast : ", _raycast, ", hit = ", _raycast.IsColliding());
         if (_raycast.IsColliding())
         {
-            GD.Print("collinding with ", _raycast.GetCollider());
-            var decal = _decalPrefab.Instantiate<Decal>();
-            AddChild(decal);
-            decal.GlobalPosition = _raycast.GetCollisionPoint();
-            // decal.Rotation = _camera.Rotation;
-            // decal.RotationDegrees = new Vector3(90, 90, 90);
-
-            Node3D collidedObject = _raycast.GetCollider() as Node3D;
-            // decal.GlobalRotation = collidedObject.GlobalRotation; 
-            decal.Rotation = _camera.Rotation;
-            decal.Rotate(_camera.Basis.X ,Mathf.Pi/2);
-            // decal.Rotation = new Vector3(-Mathf.Pi/2, 0, 0);
-            // decal.RotateX(Mathf.Pi);
-            NumberOfGraffitis++;
+            // GD.Print("collinding with ", _raycast.GetCollider());
+            // SpawnDecal();
+            PaintTexture();
         }
+    }
+
+    private void SpawnDecal()
+    {
+        var decal = _decalPrefab.Instantiate<Decal>();
+        AddChild(decal);
+        decal.GlobalPosition = _raycast.GetCollisionPoint();
+        // decal.Rotation = _camera.Rotation;
+        // decal.RotationDegrees = new Vector3(90, 90, 90);
+
+        // Node3D collidedObject = _raycast.GetCollider() as Node3D;
+        // decal.GlobalRotation = collidedObject.GlobalRotation; 
+        decal.Rotation = _camera.Rotation;
+        decal.Rotate(_camera.Basis.X ,Mathf.Pi/2);
+        // decal.Rotation = new Vector3(-Mathf.Pi/2, 0, 0);
+        // decal.RotateX(Mathf.Pi);
+        NumberOfGraffitis++;
+    }
+
+    private void PaintTexture()
+    {
+        Node3D collidedObject = _raycast.GetCollider() as Node3D;
+        GD.Print("collided object : ", collidedObject);
     }
 }

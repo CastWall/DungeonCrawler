@@ -12,6 +12,6 @@ public partial class DecalNumber : Label
 
     public override void _Process(double delta)
     {
-        Text = $"{_graffitiController.NumberOfGraffitis}";
+        Text = $"{_graffitiController?.NumberOfGraffitis}";
     }
 }

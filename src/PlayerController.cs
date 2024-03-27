@@ -28,8 +28,8 @@ public partial class PlayerController : Node3D
             SnapCamera();
         }
 
-        // if (Input.IsActionJustPressed("graff"))
-        if (Input.IsActionPressed("graff"))
+        if (Input.IsActionJustPressed("graff"))
+        // if (Input.IsActionPressed("graff"))
         {
             _graffitiController.Graff();
         }

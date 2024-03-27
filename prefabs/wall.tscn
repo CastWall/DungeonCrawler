@@ -1,16 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://ddpy4m4egdm3b"]
+[gd_scene load_steps=6 format=3 uid="uid://ddpy4m4egdm3b"]
 
 [ext_resource type="PackedScene" uid="uid://cda1jm4gasixd" path="res://models/wall.glb" id="1_8ue5e"]
+[ext_resource type="Script" path="res://src/Wall.cs" id="1_ikw50"]
+[ext_resource type="Texture2D" uid="uid://cdfq7xmgxtlri" path="res://textures/graf/base.png" id="2_00322"]
+[ext_resource type="Material" uid="uid://xr8ue30b4t07" path="res://materials/Proto_wall.tres" id="3_h2ygh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ui8k8"]
 size = Vector3(2, 2, 0.1)
 
 [node name="Wall" type="Node3D"]
+script = ExtResource("1_ikw50")
+_splashTexture = ExtResource("2_00322")
 
-[node name="wall" parent="." instance=ExtResource("1_8ue5e")]
+[node name="WallModel" parent="." instance=ExtResource("1_8ue5e")]
+
+[node name="Plane" parent="WallModel" index="0"]
+surface_material_override/0 = ExtResource("3_h2ygh")
 
 [node name="Area3D" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(0.999999, 0.000839026, -0.00138221, -0.000839811, 1, -0.000557162, 0.00138173, 0.000558344, 0.999999, 0, 1, 0)
 shape = SubResource("BoxShape3D_ui8k8")
+
+[editable path="WallModel"]
