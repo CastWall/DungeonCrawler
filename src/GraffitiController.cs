@@ -9,7 +9,7 @@ public partial class GraffitiController : Node3D
 
     private Camera3D _camera;
     private RayCast3D _raycast;
-    
+
     public long NumberOfGraffitis { get; protected set; }
 
     public override void _Ready()
@@ -41,7 +41,7 @@ public partial class GraffitiController : Node3D
         // Node3D collidedObject = _raycast.GetCollider() as Node3D;
         // decal.GlobalRotation = collidedObject.GlobalRotation; 
         decal.Rotation = _camera.Rotation;
-        decal.Rotate(_camera.Basis.X ,Mathf.Pi/2);
+        decal.Rotate(_camera.Basis.X, Mathf.Pi / 2);
         // decal.Rotation = new Vector3(-Mathf.Pi/2, 0, 0);
         // decal.RotateX(Mathf.Pi);
         NumberOfGraffitis++;
@@ -50,6 +50,28 @@ public partial class GraffitiController : Node3D
     private void PaintTexture()
     {
         Node3D collidedObject = _raycast.GetCollider() as Node3D;
-        GD.Print("collided object : ", collidedObject);
+        GD.Print("collided object : ", collidedObject, " at ", _raycast.GetCollisionPoint());
+        IPaintable paintable = GetPaintable(collidedObject);
+        if (paintable != null)
+        {
+            paintable.Paint(_raycast.GetCollisionPoint());
+        }
+        else
+        {
+            GD.Print("object ", collidedObject, " is not paintable");
+        }
+    }
+
+    private IPaintable GetPaintable(Node3D n)
+    {
+        if (n is IPaintable paintable)
+            return paintable;
+        var parent = n.GetParent<Node3D>();
+        if (parent != null)
+        {
+            return GetPaintable(parent);
+        }
+
+        return null;
     }
 }
