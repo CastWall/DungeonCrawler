@@ -21,5 +21,6 @@ layout_mode = 2
 script = ExtResource("1_5fgae")
 
 [node name="DecalNumber" type="Label" parent="VBoxContainer"]
+visible = false
 layout_mode = 2
 script = ExtResource("2_u7wy6")
