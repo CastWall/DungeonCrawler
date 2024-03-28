@@ -11,9 +11,8 @@ public partial class GameController : Node
 
     public override void _Process(double delta)
     {
-        if (Input.IsActionJustPressed("advance"))
-        {
-            GD.Print("advance");
-        }
+
     }
+    
+    
 }

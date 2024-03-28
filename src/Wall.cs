@@ -1,6 +1,7 @@
 using System;
-using DungeonCrawler;
 using Godot;
+
+namespace DungeonCrawler;
 
 public partial class Wall : Node3D, IPaintable
 {
@@ -15,7 +16,7 @@ public partial class Wall : Node3D, IPaintable
     private const float Top = 2;
     private const float Left = -1;
     private const float Right = 1;
-
+    
     public override void _Ready()
     {
         _wallPlane = GetNode<MeshInstance3D>("WallModel/Plane");

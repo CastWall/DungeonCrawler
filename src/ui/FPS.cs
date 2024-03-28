@@ -1,5 +1,6 @@
 using Godot;
-using System;
+
+namespace DungeonCrawler.ui;
 
 public partial class FPS : Label
 {

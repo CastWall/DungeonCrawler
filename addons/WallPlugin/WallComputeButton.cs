@@ -1,6 +1,6 @@
 using Godot;
-using System;
-using DungeonCrawler;
+
+namespace DungeonCrawler.addons.WallPlugin;
 
 [Tool]
 public partial class WallComputeButton : Button
