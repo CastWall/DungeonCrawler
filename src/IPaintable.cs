@@ -9,4 +9,6 @@ public interface IPaintable
     /// </summary>
     /// <param name="point">in global coordinates</param>
     public void Paint(Vector3 point);
+
+    public void Erase(Vector3 point);
 }

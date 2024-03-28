@@ -21,14 +21,27 @@ public partial class GraffitiController : Node3D
         NumberOfGraffitis = 0;
     }
 
-    public void Graff()
+    public void Paint()
     {
-        // GD.Print("camera : ", _camera, ", raycast : ", _raycast, ", hit = ", _raycast.IsColliding());
-        if (_raycast.IsColliding())
+        if (!_raycast.IsColliding()) return;
+        Node3D collidedObject = _raycast.GetCollider() as Node3D;
+        IPaintable paintable = GetPaintableRecursively(collidedObject);
+        // GD.Print($"collided object : {collidedObject} ({paintable}) at {_raycast.GetCollisionPoint()}");
+        if (paintable != null)
         {
-            // GD.Print("collinding with ", _raycast.GetCollider());
-            // SpawnDecal();
-            PaintTexture();
+            paintable.Paint(_raycast.GetCollisionPoint());
+            NumberOfGraffitis++;
+        }
+    }
+
+    public void Erase()
+    {
+        if (!_raycast.IsColliding()) return;
+        Node3D collidedObject = _raycast.GetCollider() as Node3D;
+        IPaintable paintable = GetPaintableRecursively(collidedObject);
+        if (paintable != null)
+        {
+            paintable.Erase(_raycast.GetCollisionPoint());
         }
     }
 
@@ -47,22 +60,6 @@ public partial class GraffitiController : Node3D
         // decal.Rotation = new Vector3(-Mathf.Pi/2, 0, 0);
         // decal.RotateX(Mathf.Pi);
         NumberOfGraffitis++;
-    }
-
-    private void PaintTexture()
-    {
-        Node3D collidedObject = _raycast.GetCollider() as Node3D;
-        IPaintable paintable = GetPaintableRecursively(collidedObject);
-        // GD.Print($"collided object : {collidedObject} ({paintable}) at {_raycast.GetCollisionPoint()}");
-        if (paintable != null)
-        {
-            paintable.Paint(_raycast.GetCollisionPoint());
-            NumberOfGraffitis++;
-        }
-        else
-        {
-            // GD.Print("object ", collidedObject, " is not paintable");
-        }
     }
 
     /// <summary>

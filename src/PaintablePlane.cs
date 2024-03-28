@@ -9,6 +9,7 @@ public abstract partial class PaintablePlane : Node3D, IPaintable
     protected Image SplashImage;
 
     protected BaseMaterial3D Mat;
+    protected Image BaseImg;
     protected Image Img;
 
     public override void _Ready()
@@ -25,10 +26,10 @@ public abstract partial class PaintablePlane : Node3D, IPaintable
         SplashImage.Decompress();
 
         Mat = Plane.GetActiveMaterial(0) as BaseMaterial3D;
-        var matBaseImg = Mat.AlbedoTexture.GetImage();
-        matBaseImg.Decompress();
-        Img = Image.Create(matBaseImg.GetWidth(), matBaseImg.GetHeight(), false, Image.Format.Rgba8);
-        Img.BlitRect(matBaseImg, new Rect2I(0, 0, Img.GetSize()), new Vector2I(0, 0));
+        BaseImg = Mat.AlbedoTexture.GetImage();
+        BaseImg.Decompress();
+        Img = Image.Create(BaseImg.GetWidth(), BaseImg.GetHeight(), false, Image.Format.Rgba8);
+        Img.BlitRect(BaseImg, new Rect2I(0, 0, Img.GetSize()), new Vector2I(0, 0));
 
         Mat.AlbedoTexture = ImageTexture.CreateFromImage(Img);
         UpdateTexture();
@@ -49,6 +50,16 @@ public abstract partial class PaintablePlane : Node3D, IPaintable
         UpdateTexture();
     }
 
+    protected void Erase(Vector2I texCoords)
+    {
+        // GD.Print("erasing");
+        var size = SplashImage.GetSize();
+        var topLeftCorner = texCoords - (size / 2);
+        // Img.BlendRectMask(BaseImg, SplashImage,new Rect2I(topLeftCorner, size), topLeftCorner);
+        Img.BlendRect(BaseImg, new Rect2I(topLeftCorner, size), topLeftCorner);
+        UpdateTexture();
+    }
+
     public abstract Vector2I ToTextureCoords(Vector3 localCoords);
 
     public void Paint(Vector3 point)
@@ -56,5 +67,11 @@ public abstract partial class PaintablePlane : Node3D, IPaintable
         var localCoords = ToLocal(point);
         // GD.Print("painting wall at coords ", localCoords, " -> tex coord = ", ToTextureCoords(localCoords));
         Paint(ToTextureCoords(localCoords));
+    }
+
+    public void Erase(Vector3 point)
+    {
+        var texCoords = ToTextureCoords(ToLocal(point));
+        Erase(texCoords);
     }
 }

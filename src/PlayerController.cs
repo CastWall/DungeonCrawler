@@ -61,10 +61,15 @@ public partial class PlayerController : Node3D
             SnapCamera().Finished += () => { Advance(); };
         }
 
-        // if (Input.IsActionJustPressed("graff"))
-        if (Input.IsActionPressed("graff"))
+        // if (Input.IsActionJustPressed("paint"))
+        if (Input.IsActionPressed("paint"))
         {
-            _graffitiController.Graff();
+            _graffitiController.Paint();
+        }
+
+        if (Input.IsActionPressed("erase"))
+        {
+            _graffitiController.Erase();
         }
     }
 
