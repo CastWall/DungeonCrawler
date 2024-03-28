@@ -11,19 +11,17 @@ public abstract partial class PaintablePlane : Node3D, IPaintable
 
     protected BaseMaterial3D Mat;
     protected Image Img;
+
     public override void _Ready()
     {
         SplashImage = SplashTexture.GetImage();
         SplashImage.Decompress();
-        
+
         Mat = Plane.GetActiveMaterial(0) as BaseMaterial3D;
-        Img = Image.Create(1024, 1024, false, Image.Format.Rgba8);
-        Random rnd = new Random();
-        Img.Fill(new Color(
-            rnd.NextSingle(),
-            rnd.NextSingle(),
-            rnd.NextSingle()
-        ));
+        var matBaseImg = Mat.AlbedoTexture.GetImage();
+        matBaseImg.Decompress();
+        Img = Image.Create(matBaseImg.GetWidth(), matBaseImg.GetHeight(), false, Image.Format.Rgba8);
+        Img.BlitRect(matBaseImg, new Rect2I(0, 0, Img.GetSize()), new Vector2I(0, 0));
 
         Mat.AlbedoTexture = ImageTexture.CreateFromImage(Img);
         UpdateTexture();
@@ -36,6 +34,7 @@ public abstract partial class PaintablePlane : Node3D, IPaintable
 
         (Mat.AlbedoTexture as ImageTexture).Update(Img);
     }
+
     protected void Paint(Vector2I texCoords)
     {
         var size = SplashImage.GetSize();
