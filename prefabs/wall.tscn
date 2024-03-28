@@ -8,9 +8,10 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_ui8k8"]
 size = Vector3(2, 2, 0.1)
 
-[node name="Wall" type="Node3D"]
+[node name="Wall" type="Node3D" node_paths=PackedStringArray("Plane")]
 script = ExtResource("1_ikw50")
-_splashTexture = ExtResource("2_00322")
+SplashTexture = ExtResource("2_00322")
+Plane = NodePath("WallModel/Plane")
 
 [node name="WallModel" parent="." instance=ExtResource("1_8ue5e")]
 

@@ -3,9 +3,14 @@ using Godot;
 namespace DungeonCrawler;
 
 [Tool]
-public partial class BlockController : Node3D
+public partial class BlockController : PaintablePlane, IPaintable
 {
     public const float BlockSize = 2;
+    
+    protected const float Bottom = -1;
+    protected const float Top = 1;
+    protected const float Left = -1;
+    protected const float Right = 1;
 
     //X+ = east
 
@@ -24,6 +29,8 @@ public partial class BlockController : Node3D
 
     public override void _Ready()
     {
+        base._Ready();
+
         InitWalls();
         InitGridCoords();
     }
@@ -68,5 +75,15 @@ public partial class BlockController : Node3D
         wall.Visible = state;
         wall.SetProcess(state);
         wall.GetNode<Area3D>("Area3D").GetNode<CollisionShape3D>("CollisionShape3D").Disabled = !state;
+    }
+
+    public override Vector2I ToTextureCoords(Vector3 localCoords)
+    {
+        GD.Print($"image : {Img}");
+        
+        return new Vector2I(
+            (int)((localCoords.X - Left) * Img.GetWidth() / BlockSize),
+            (int)((localCoords.Z - Bottom) * Img.GetHeight() / BlockSize)
+        );
     }
 }

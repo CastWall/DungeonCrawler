@@ -21,7 +21,7 @@ public partial class GraffitiController : Node3D
 
     public void Graff()
     {
-        GD.Print("camera : ", _camera, ", raycast : ", _raycast, ", hit = ", _raycast.IsColliding());
+        // GD.Print("camera : ", _camera, ", raycast : ", _raycast, ", hit = ", _raycast.IsColliding());
         if (_raycast.IsColliding())
         {
             // GD.Print("collinding with ", _raycast.GetCollider());
@@ -50,8 +50,8 @@ public partial class GraffitiController : Node3D
     private void PaintTexture()
     {
         Node3D collidedObject = _raycast.GetCollider() as Node3D;
-        GD.Print("collided object : ", collidedObject, " at ", _raycast.GetCollisionPoint());
-        IPaintable paintable = GetPaintable(collidedObject);
+        IPaintable paintable = GetPaintableRecursively(collidedObject);
+        GD.Print($"collided object : {collidedObject} ({paintable}) at {_raycast.GetCollisionPoint()}");
         if (paintable != null)
         {
             paintable.Paint(_raycast.GetCollisionPoint());
@@ -62,14 +62,19 @@ public partial class GraffitiController : Node3D
         }
     }
 
-    private IPaintable GetPaintable(Node3D n)
+    /// <summary>
+    /// Returns n if it is a paintable, or the closest paintable parent
+    /// </summary>
+    /// <param name="n"></param>
+    /// <returns>the closest paintable parent, null if not found</returns>
+    private IPaintable GetPaintableRecursively(Node3D n)
     {
         if (n is IPaintable paintable)
             return paintable;
         var parent = n.GetParent<Node3D>();
         if (parent != null)
         {
-            return GetPaintable(parent);
+            return GetPaintableRecursively(parent);
         }
 
         return null;

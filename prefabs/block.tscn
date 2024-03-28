@@ -1,18 +1,25 @@
-[gd_scene load_steps=5 format=3 uid="uid://beh4p8qfw2t4p"]
+[gd_scene load_steps=7 format=3 uid="uid://beh4p8qfw2t4p"]
 
 [ext_resource type="PackedScene" uid="uid://vxt6aumgoj4n" path="res://models/base_block.glb" id="1_c742d"]
 [ext_resource type="Script" path="res://src/BlockController.cs" id="1_qwpwp"]
+[ext_resource type="Texture2D" uid="uid://cdfq7xmgxtlri" path="res://textures/graf/base.png" id="2_uua7v"]
 [ext_resource type="PackedScene" uid="uid://ddpy4m4egdm3b" path="res://prefabs/wall.tscn" id="3_7wqvb"]
+[ext_resource type="Material" uid="uid://dtgra4s3c6h7x" path="res://materials/Floor.tres" id="4_4esdf"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5uays"]
 size = Vector3(2, 0.1, 2)
 
-[node name="(0, 0)" type="Node3D"]
+[node name="(0, 0)" type="Node3D" node_paths=PackedStringArray("Plane")]
 script = ExtResource("1_qwpwp")
 EastWallEnabled = true
 WestWallEnabled = true
+SplashTexture = ExtResource("2_uua7v")
+Plane = NodePath("base_block/Plane")
 
 [node name="base_block" parent="." instance=ExtResource("1_c742d")]
+
+[node name="Plane" parent="base_block" index="0"]
+surface_material_override/0 = ExtResource("4_4esdf")
 
 [node name="POV" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
@@ -40,5 +47,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
 shape = SubResource("BoxShape3D_5uays")
 
 [node name="DebugText" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.1, 0)
+transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, 0.1, 0)
 text = "(0, 0)"
+
+[editable path="base_block"]

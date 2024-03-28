@@ -3,59 +3,18 @@ using Godot;
 
 namespace DungeonCrawler;
 
-public partial class Wall : Node3D, IPaintable
+public partial class Wall : PaintablePlane, IPaintable
 {
-    [Export] private Texture2D _splashTexture;
-    private Image _splashImage;
+    protected const float Bottom = 0;
+    protected const float Top = 2;
+    protected const float Left = -1;
+    protected const float Right = 1;
 
-    private MeshInstance3D _wallPlane;
-    private BaseMaterial3D _mat;
-    private Image _img;
-
-    private const float Bottom = 0;
-    private const float Top = 2;
-    private const float Left = -1;
-    private const float Right = 1;
-    
     public override void _Ready()
     {
-        _wallPlane = GetNode<MeshInstance3D>("WallModel/Plane");
-        GD.Print("wall plane :", _wallPlane);
-
-        _splashImage = _splashTexture.GetImage();
-        _splashImage.Decompress();
-        // _splashImage.Convert(Image.Format.Rgba8);
-
-        _mat = _wallPlane.GetActiveMaterial(0) as BaseMaterial3D;
-        // var mat = _wallPlane.MaterialOverride;
-        // _mat = mat.Duplicate(true) as BaseMaterial3D;
-        // GD.Print("mat : ", _mat, ", old mat = ", mat);
-        GD.Print(GetInstanceId(), " mat : ", _mat);
-
-        // _img = _mat.AlbedoTexture.GetImage().Duplicate() as Image;
-        // _img.Decompress();
-
-        _img = Image.Create(1024, 1024, false, Image.Format.Rgba8);
-        Random rnd = new Random();
-        _img.Fill(new Color(
-            rnd.NextSingle(),
-            rnd.NextSingle(),
-            rnd.NextSingle()
-        ));
-
-        _mat.AlbedoTexture = ImageTexture.CreateFromImage(_img);
-        UpdateTexture();
-
-        // for (int i = 0; i < 100; i++)
-        // RandomSplash();
-    }
-
-    private void UpdateTexture()
-    {
-        if (_mat == null)
-            return;
-
-        (_mat.AlbedoTexture as ImageTexture).Update(_img);
+        // Plane = GetNode<MeshInstance3D>("WallModel/Plane");
+        GD.Print("wall plane :", Plane);
+        base._Ready();
     }
 
     public override void _Process(double delta)
@@ -69,8 +28,8 @@ public partial class Wall : Node3D, IPaintable
         Random rnd = new Random();
 
         Vector2I splashPoint = new Vector2I(
-            rnd.Next(_img.GetWidth()),
-            rnd.Next(_img.GetHeight())
+            rnd.Next(Img.GetWidth()),
+            rnd.Next(Img.GetHeight())
         );
 
         // GD.Print("splash point : ", splashPoint, ", splash dim : ", splashDim);
@@ -79,30 +38,15 @@ public partial class Wall : Node3D, IPaintable
         // GD.Print("tex format :", (_mat.AlbedoTexture as ImageTexture).GetFormat(), ", splash format : ", _splashImage.GetFormat());
         Paint(splashPoint);
     }
-
-    private void Paint(Vector2I texCoords)
-    {
-        var size = _splashImage.GetSize();
-        _img.BlendRect(_splashImage, new Rect2I(0, 0, size), texCoords - (size / 2));
-        UpdateTexture();
-    }
-
-    public Vector2I ToTextureCoords(Vector3 localCoords)
+    public override Vector2I ToTextureCoords(Vector3 localCoords)
     {
         var wallSizeX = Right - Left;
         var wallSizeY = Top - Bottom;
 
 
         return new Vector2I(
-            (int)((localCoords.X - Left) * _img.GetWidth() / wallSizeX),
-            (int)((Top - localCoords.Y) * _img.GetHeight() / wallSizeY)
+            (int)((localCoords.X - Left) * Img.GetWidth() / wallSizeX),
+            (int)((Top - localCoords.Y) * Img.GetHeight() / wallSizeY)
         );
-    }
-
-    public void Paint(Vector3 point)
-    {
-        var localCoords = ToLocal(point);
-        GD.Print("painting wall at coords ", localCoords, " -> tex coord = ", ToTextureCoords(localCoords));
-        Paint(ToTextureCoords(localCoords));
     }
 }
