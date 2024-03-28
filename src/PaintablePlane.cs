@@ -5,7 +5,6 @@ namespace DungeonCrawler;
 
 public abstract partial class PaintablePlane : Node3D, IPaintable
 {
-    [Export] protected Texture2D SplashTexture;
     [Export] protected MeshInstance3D Plane;
     protected Image SplashImage;
 
@@ -14,7 +13,15 @@ public abstract partial class PaintablePlane : Node3D, IPaintable
 
     public override void _Ready()
     {
-        SplashImage = SplashTexture.GetImage();
+        if (Engine.IsEditorHint())
+            return;
+        SetupTexturePainting();
+    }
+
+    private void SetupTexturePainting()
+    {
+        GraffitiController graffitiController = GetNode<GraffitiController>("/root/Game/Player/GraffitiController");
+        SplashImage = graffitiController.SplashTexture.GetImage();
         SplashImage.Decompress();
 
         Mat = Plane.GetActiveMaterial(0) as BaseMaterial3D;
@@ -47,7 +54,7 @@ public abstract partial class PaintablePlane : Node3D, IPaintable
     public void Paint(Vector3 point)
     {
         var localCoords = ToLocal(point);
-        GD.Print("painting wall at coords ", localCoords, " -> tex coord = ", ToTextureCoords(localCoords));
+        // GD.Print("painting wall at coords ", localCoords, " -> tex coord = ", ToTextureCoords(localCoords));
         Paint(ToTextureCoords(localCoords));
     }
 }

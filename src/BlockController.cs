@@ -79,8 +79,6 @@ public partial class BlockController : PaintablePlane, IPaintable
 
     public override Vector2I ToTextureCoords(Vector3 localCoords)
     {
-        GD.Print($"image : {Img}");
-        
         return new Vector2I(
             (int)((localCoords.X - Left) * Img.GetWidth() / BlockSize),
             (int)((localCoords.Z - Bottom) * Img.GetHeight() / BlockSize)

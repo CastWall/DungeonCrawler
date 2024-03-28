@@ -6,6 +6,8 @@ public partial class GraffitiController : Node3D
 {
     // [Export] private Texture2D _decalTexture;
     [Export] private PackedScene _decalPrefab;
+    [Export] public Texture2D SplashTexture { get; protected set; }
+
 
     private Camera3D _camera;
     private RayCast3D _raycast;
@@ -51,14 +53,15 @@ public partial class GraffitiController : Node3D
     {
         Node3D collidedObject = _raycast.GetCollider() as Node3D;
         IPaintable paintable = GetPaintableRecursively(collidedObject);
-        GD.Print($"collided object : {collidedObject} ({paintable}) at {_raycast.GetCollisionPoint()}");
+        // GD.Print($"collided object : {collidedObject} ({paintable}) at {_raycast.GetCollisionPoint()}");
         if (paintable != null)
         {
             paintable.Paint(_raycast.GetCollisionPoint());
+            NumberOfGraffitis++;
         }
         else
         {
-            GD.Print("object ", collidedObject, " is not paintable");
+            // GD.Print("object ", collidedObject, " is not paintable");
         }
     }
 

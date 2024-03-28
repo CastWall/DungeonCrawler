@@ -9,14 +9,7 @@ public partial class Wall : PaintablePlane, IPaintable
     protected const float Top = 2;
     protected const float Left = -1;
     protected const float Right = 1;
-
-    public override void _Ready()
-    {
-        // Plane = GetNode<MeshInstance3D>("WallModel/Plane");
-        GD.Print("wall plane :", Plane);
-        base._Ready();
-    }
-
+    
     public override void _Process(double delta)
     {
         base._Process(delta);
