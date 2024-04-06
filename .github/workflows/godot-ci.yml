@@ -3,8 +3,8 @@ on: push
 
 env:
   GODOT_VERSION: 4.2.1
-  EXPORT_NAME: dungeon-tagger
-  PROJECT_PATH: dungeon-tagger
+  EXPORT_NAME: DungeonCrawler
+  PROJECT_PATH: DungeonCrawler
 
 jobs:
   export-windows:
