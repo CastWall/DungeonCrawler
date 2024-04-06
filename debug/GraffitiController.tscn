@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://b2jsay1r0n8yh"]
+[gd_scene load_steps=4 format=3 uid="uid://b2jsay1r0n8yh"]
 
 [ext_resource type="Script" path="res://src/GraffitiController.cs" id="1_65fpr"]
 [ext_resource type="PackedScene" uid="uid://cdxypocckqnbg" path="res://prefabs/decal.tscn" id="2_e5fes"]
+[ext_resource type="Texture2D" uid="uid://cdfq7xmgxtlri" path="res://textures/graf/small.png" id="3_jkqgw"]
 
 [node name="GraffitiController" type="Node3D"]
 script = ExtResource("1_65fpr")
 _decalPrefab = ExtResource("2_e5fes")
+SplashTexture = ExtResource("3_jkqgw")
 
 [node name="Decal" parent="." instance=ExtResource("2_e5fes")]
 transform = Transform3D(-0.171938, -0.742555, -0.64734, 0, 0.657126, -0.753781, 0.985108, -0.129603, -0.112985, 0.949849, 0.859428, 0.165784)

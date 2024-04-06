@@ -4,8 +4,8 @@
 [ext_resource type="Script" path="res://src/FreeLookCamera.cs" id="1_phyu1"]
 [ext_resource type="Script" path="res://src/GraffitiController.cs" id="3_jhs4l"]
 [ext_resource type="PackedScene" uid="uid://cdxypocckqnbg" path="res://prefabs/decal.tscn" id="4_n0u76"]
-[ext_resource type="Texture2D" uid="uid://d1e7ndievu7e3" path="res://textures/graf/medium.png" id="5_14epl"]
 [ext_resource type="Script" path="res://src/MovementController.cs" id="5_agykj"]
+[ext_resource type="Texture2D" uid="uid://cdfq7xmgxtlri" path="res://textures/graf/small.png" id="5_pfa58"]
 
 [node name="Player" type="Node3D"]
 script = ExtResource("1_jsuwv")
@@ -24,7 +24,7 @@ visible = false
 [node name="GraffitiController" type="Node3D" parent="."]
 script = ExtResource("3_jhs4l")
 _decalPrefab = ExtResource("4_n0u76")
-SplashTexture = ExtResource("5_14epl")
+SplashTexture = ExtResource("5_pfa58")
 
 [node name="MovementController" type="Node3D" parent="."]
 script = ExtResource("5_agykj")
