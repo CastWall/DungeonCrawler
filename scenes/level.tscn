@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://ddmmbb15l82dn"]
+[gd_scene load_steps=3 format=3 uid="uid://ddmmbb15l82dn"]
 
 [ext_resource type="PackedScene" uid="uid://beh4p8qfw2t4p" path="res://prefabs/block.tscn" id="1_bomht"]
+[ext_resource type="PackedScene" uid="uid://c8cdyej8d8b1a" path="res://prefabs/trap.tscn" id="2_otyts"]
 
 [node name="Level" type="Node3D"]
 
@@ -30,3 +31,5 @@ SouthWallEnabled = true
 [node name="(0, 2)" parent="." instance=ExtResource("1_bomht")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
 SouthWallEnabled = true
+
+[node name="Trap" parent="(0, 2)" instance=ExtResource("2_otyts")]

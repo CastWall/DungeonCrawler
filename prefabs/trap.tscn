@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8cdyej8d8b1a"]
+
+[ext_resource type="Script" path="res://src/Trap.cs" id="1_po0i2"]
+[ext_resource type="PackedScene" uid="uid://bpjloyxtieet4" path="res://models/spike.blend" id="2_ne66i"]
+
+[node name="Trap" type="Node3D" groups=["trap"]]
+script = ExtResource("1_po0i2")
+
+[node name="spike" parent="." instance=ExtResource("2_ne66i")]

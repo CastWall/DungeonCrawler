@@ -5,6 +5,7 @@ namespace DungeonCrawler;
 
 public partial class PlayerController : Node3D
 {
+    [Export] public float CameraSnapTime { get; protected set; } = 0.3f;
     public Direction CurrentDirection { get; protected set; }
 
     public Vector2I AimedCoords
@@ -71,6 +72,12 @@ public partial class PlayerController : Node3D
         {
             _graffitiController.Erase();
         }
+
+        if (Input.IsActionPressed("debug"))
+        {
+            var trap = GetTree().GetFirstNodeInGroup("trap") as Trap;
+            trap?.Activate();
+        }
     }
 
 
@@ -81,11 +88,11 @@ public partial class PlayerController : Node3D
         _camera.RotateY(0); // Reset rotation between -180 and 180
 
         Tween tween = GetTree().CreateTween();
-        tween.SetProcessMode(Tween.TweenProcessMode.Idle); //on frame update
+        // tween.SetProcessMode(Tween.TweenProcessMode.Idle); //on frame update
         tween.TweenProperty(_camera,
             "rotation",
             new Vector3(0, DirectionHelper.GetAimedYAngle(_camera), 0),
-            0.5f
+            CameraSnapTime
         );
         return tween;
     }

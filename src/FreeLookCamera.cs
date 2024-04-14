@@ -37,11 +37,16 @@ public partial class FreeLookCamera : Camera3D
         }
     }
 
+    public override void _Ready()
+    {
+        base._Ready();
+        Input.MouseMode = Input.MouseModeEnum.Captured;
+    }
+
     public override void _Process(double delta)
     {
         if (!Current)
             return;
         base._Process(delta);
-        Input.MouseMode = Input.MouseModeEnum.Captured;
     }
 }
